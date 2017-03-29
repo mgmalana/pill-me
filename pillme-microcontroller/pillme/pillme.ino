@@ -1,6 +1,5 @@
 /*
 TODO:
-only send data once
 send data to firebase
 add a switch for refill
 set up firebase database
@@ -24,7 +23,6 @@ void setup() {
 }
  
 void loop() {
-  checkCompartments();  
   delay(500);
 }
 
