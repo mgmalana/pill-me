@@ -18,23 +18,15 @@
 			<p>Please close {{openCompartments.join()}} Compartment/s</p>
 		</ion-card-content>
 	</ion-card>
-	<ion-card>
-		<ion-card-header color="danger">
-			LATE: 5:00pm
+	<ion-card *ngFor="let n of notifs">
+		<ion-card-header color="{{n.color}}">
+			{{n.status}}: {{n.time}}
 		</ion-card-header>
 
 		<ion-card-content>
-			<p>Medication: AntibioticA</p>
+			<h2 *ngFor="let item of medication[n.medication] | values">
+				{{item}}
+			</h2>
 		</ion-card-content>
 	</ion-card>
-	<ion-card>
-		<ion-card-header color="primary">
-			UP NEXT: 8:30pm
-		</ion-card-header>
-
-		<ion-card-content>
-			<p>Medication: CapsuleA, Capsule B</p>
-		</ion-card-content>
-	</ion-card>
-
 </ion-content>

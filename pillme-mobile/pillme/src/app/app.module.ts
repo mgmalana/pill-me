@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from './config.ts'
 import { ValuesPipe } from '../pipes/pipes';
+import { DataProvider } from '../providers/data';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ValuesPipe } from '../pipes/pipes';
   providers: [
     StatusBar,
     SplashScreen,
+    DataProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
