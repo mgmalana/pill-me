@@ -9,6 +9,15 @@
 
 
 <ion-content padding>
+	<ion-card *ngIf = "isThereOpenCompartment">
+		<ion-card-header color="danger">
+			OPEN COMPARTMENTS!
+		</ion-card-header>
+
+		<ion-card-content>
+			<p>Please close {{openCompartments.join()}} Compartment/s</p>
+		</ion-card-content>
+	</ion-card>
 	<ion-card>
 		<ion-card-header color="danger">
 			LATE: 5:00pm

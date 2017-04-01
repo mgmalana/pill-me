@@ -7,8 +7,6 @@
   </ion-navbar>
 </ion-header>
 
-
-
 <ion-content padding>
 	<ion-grid>
 	  <ion-row>
@@ -16,19 +14,16 @@
 			<ion-card> 
 				<ion-item color="primary">
 					1x a day
-					<button ion-button item-right clear color="light"> 
+					<button ion-button item-right clear color="light" (click)=add(1)> 
 						<ion-icon name='add'></ion-icon> 
 					</button> 
 				</ion-item>
 				<ion-card-content>
 					<ion-item text-wrap>
-						(8pm)
+						(8am)
 					</ion-item>
-						<h2>
-							AntibioticA	
-						</h2>
-						<h2>
-							AntibioticB
+						<h2 *ngFor="let item of medication['1'] | values">
+							{{item}}
 						</h2>
 				</ion-card-content>
 			</ion-card>
@@ -37,7 +32,7 @@
 			<ion-card> 
 				<ion-item color="primary">
 					2x a day
-					<button ion-button item-right clear color="light"> 
+					<button ion-button item-right clear color="light" (click)=add(2)> 
 						<ion-icon name='add'></ion-icon> 
 					</button> 
 				</ion-item>
@@ -45,11 +40,8 @@
 					<ion-item text-wrap>
 						(8am, 8pm)
 					</ion-item>
-						<h2>
-							AntibioticA	
-						</h2>
-						<h2>
-							AntibioticB
+						<h2 *ngFor="let item of medication['2'] | values">
+							{{item}}
 						</h2>
 				</ion-card-content>
 			</ion-card>
@@ -60,7 +52,7 @@
 			<ion-card> 
 				<ion-item color="primary">
 					3x a day
-					<button ion-button item-right clear color="light"> 
+					<button ion-button item-right clear color="light" (click)=add(3)> 
 						<ion-icon name='add'></ion-icon> 
 					</button> 
 				</ion-item>
@@ -68,11 +60,8 @@
 					<ion-item text-wrap>
 						(8am, 4pm, 12mn)
 					</ion-item>
-						<h2>
-							AntibioticA	
-						</h2>
-						<h2>
-							AntibioticB
+						<h2 *ngFor="let item of medication['3'] | values">
+							{{item}}
 						</h2>
 				</ion-card-content>
 			</ion-card>  		
@@ -81,7 +70,7 @@
 			<ion-card> 
 				<ion-item color="primary">
 					4x a day
-					<button ion-button item-right clear color="light"> 
+					<button ion-button item-right clear color="light" (click)=add(4)> 
 						<ion-icon name='add'></ion-icon> 
 					</button> 
 				</ion-item>
@@ -89,11 +78,8 @@
 					<ion-item text-wrap>
 						(6am, 12nn, 6pm, 12mn)
 					</ion-item>
-						<h2>
-							AntibioticA	
-						</h2>
-						<h2>
-							AntibioticB
+						<h2 *ngFor="let item of medication['4'] | values">
+							{{item}}
 						</h2>
 				</ion-card-content>
 			</ion-card> 	   	

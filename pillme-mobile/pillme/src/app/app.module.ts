@@ -8,15 +8,22 @@ import { CalendarPage } from '../pages/calendar/calendar'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from './config.ts'
+import { ValuesPipe } from '../pipes/pipes';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MedicationPage,
     CalendarPage,
+    ValuesPipe,
+
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
