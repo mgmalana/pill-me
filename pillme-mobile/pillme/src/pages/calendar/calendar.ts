@@ -54,13 +54,12 @@ export class CalendarPage {
     }
 
     showMissedMedication() {
-
         var events = [];
-
-    	let now = new Date(this.dataProvider.startDate);
+        let now = new Date();
+    	let startDate = new Date(this.dataProvider.startDate);
 		let daysList = [];
 
-		for (var d = now; d <= new Date(); d.setDate(d.getDate() + 1)) {
+		for (var d = startDate; d <= new Date(); d.setDate(d.getDate() + 1)) {
 		    daysList.push(new Date(d).setHours(0,0,0));
 		}
 		daysList.push(d.getTime()); //add tomorrow
@@ -77,15 +76,17 @@ export class CalendarPage {
 				    	}
 				    }).take(1).subscribe(snapshot =>{
 				    	if(snapshot.length == 0){
-				    		intake.isLate = true;
-				    		this.dataProvider.isThereMissed = true;
-						events.push({  //push late event
-							title: 'Late - ' + m +'x medication',
-							startTime: new Date(daysList[i] + intake.time * 3600000),
-							endTime: new Date(daysList[i] + intake.time * 3600000),
-							allDay: false
-						});
-					}
+				    		let schedDate = new Date(daysList[i] + intake.time * 3600000);
+
+				    		if(now.getTime() > daysList[i] + intake.time * 3600000 + intake.hoursGap * 3600000){ //if tapos na end time
+								events.push({  //push late event
+									title: 'Late - ' + m +'x medication',
+									startTime: schedDate,
+									endTime: schedDate,
+									allDay: false
+								});
+							}
+						}
 				    });
 				}
 			}

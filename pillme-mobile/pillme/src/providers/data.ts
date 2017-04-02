@@ -5,8 +5,6 @@ import 'rxjs/add/operator/map';
 export class DataProvider {
 	medications;
 	startDate = 1487088000000; //feb 15, 2017
-	isThereMissed = false;
-
 	constructor() {
 		this.medications = {
 			1: [new Intake(8, 12)],
