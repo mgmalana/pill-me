@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import {DataProvider} from '../../providers/data';
 import { AngularFire} from 'angularfire2';
 
@@ -68,6 +68,8 @@ export class CalendarPage {
 
 			for(let m in this.dataProvider.medications){ //loop through medication everyday
 				for(let intake of this.dataProvider.medications[m]){
+		    		let schedDate = new Date(daysList[i] + intake.time * 3600000);
+
 					this.af.database.list('/drink', { //handles if someone drinks new meds
 				    	query: {
 				    		orderByChild: 'timestamp',
@@ -75,8 +77,13 @@ export class CalendarPage {
 				    		endAt: daysList[i] + intake.time * 3600000 + intake.hoursGap * 3600000,
 				    	}
 				    }).take(1).subscribe(snapshot =>{
+				    	snapshot = snapshot.filter(function(item){
+				    		console.log(item.day)
+
+				    		return item.day == schedDate.getDay();
+				    	});
+
 				    	if(snapshot.length == 0){
-				    		let schedDate = new Date(daysList[i] + intake.time * 3600000);
 
 				    		if(now.getTime() > daysList[i] + intake.time * 3600000 + intake.hoursGap * 3600000){ //if tapos na end time
 								events.push({  //push late event
@@ -86,6 +93,8 @@ export class CalendarPage {
 									allDay: false
 								});
 							}
+						} else {
+							console.log(snapshot)
 						}
 				    });
 				}

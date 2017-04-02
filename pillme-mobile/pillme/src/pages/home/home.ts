@@ -55,7 +55,7 @@ export class HomePage {
 	    	}
 	    }).subscribe(snapshot=>{
 	    	for(let s in snapshot){
-	    		if(snapshot[s].day == this.dayToday || snapshot[s].day== (this.dayToday + 6) % 7){ //today or the prev day
+	    		if(snapshot[s].day == this.dayToday){ //today or the prev day
 	    			for(let m in this.data.medications){
 	    				for(let intake of this.data.medications[m]){
 	    					if(!(intake.haveDrunk) && this.isWithinInterval(intake.time, intake.hoursGap, snapshot[s].timestamp)){

@@ -13,10 +13,10 @@ export class DataProvider {
 			3: [new Intake(8, 3),
 				new Intake(14, 3),
 				new Intake(20, 3)],
-			4: [new Intake(8, 2.5),
-				new Intake(13, 2.5),
-				new Intake(18, 2.5),
-				new Intake(23, 2.5)]
+			4: [new Intake(6, 2.5),
+				new Intake(11, 2.5),
+				new Intake(16, 2.5),
+				new Intake(21, 2.5)]
 		}
 
 		console.log('Hello Data Provider');
