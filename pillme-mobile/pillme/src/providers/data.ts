@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DataProvider {
 	medications;
+	startDate = 1487088000000; //feb 15, 2017
+	isThereMissed = false;
+
 	constructor() {
 		this.medications = {
 			1: [new Intake(8, 12)],
@@ -29,7 +31,6 @@ export class DataProvider {
 			}
 		}	
 	}
-
 }
 
 export class Intake{

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import { AngularFire} from 'angularfire2';
 @Component({
   selector: 'page-medication',
   templateUrl: 'medication.html'

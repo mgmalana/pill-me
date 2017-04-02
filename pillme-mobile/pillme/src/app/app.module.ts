@@ -9,6 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireModule } from 'angularfire2';
+import { NgCalendarModule  } from 'ionic2-calendar';
+
+
 import { firebaseConfig } from './config.ts'
 import { ValuesPipe } from '../pipes/pipes';
 import { DataProvider } from '../providers/data';
@@ -23,6 +26,7 @@ import { DataProvider } from '../providers/data';
 
   ],
   imports: [
+    NgCalendarModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
