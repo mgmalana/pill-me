@@ -54,11 +54,11 @@ export class HomePage {
 	    		startAt: startEndDate[0],
 	    	}
 	    }).subscribe(snapshot=>{
-	    	for(let s of snapshot){
-	    		if(s.day == this.dayToday, s.day== (this.dayToday + 6) % 7){ //today or the prev day
+	    	for(let s in snapshot){
+	    		if(snapshot[s].day == this.dayToday || snapshot[s].day== (this.dayToday + 6) % 7){ //today or the prev day
 	    			for(let m in this.data.medications){
 	    				for(let intake of this.data.medications[m]){
-	    					if(!(intake.haveDrunk) && this.isWithinInterval(intake.time, intake.hoursGap)){
+	    					if(!(intake.haveDrunk) && this.isWithinInterval(intake.time, intake.hoursGap, snapshot[s].timestamp)){
 	    						intake.haveDrunk = true;
 	    						this.updateNotifs();
 	    					}
@@ -102,22 +102,27 @@ export class HomePage {
 		return [startDate, startDate + 43200000]; //end time is plus 12 hours
 	}
 
-	private isWithinInterval(time: number, gap: number): boolean{
-		let status = this.withinIntervalStatus(time, gap);
+	private isWithinInterval(time: number, gap: number, compareTime: number): boolean{
+		let status = this.withinIntervalStatus(time, gap, compareTime);
 
 		return status == 1 || status == 2;
 	}
 
-	private withinIntervalStatus(time: number, gap: number): number{  //0 = Up next, 1 = Due, 2 = Late
-		let millisToday =  new Date().getTime();
+	private withinIntervalStatus(time: number, gap: number, compareTime): number{  //0 = Up next, 1 = Due, 2 = Late
+		let millisToday; //can be today or comparetime
+		
+		if(compareTime){
+			millisToday = compareTime;
+		} else {
+			millisToday =  new Date().getTime();
+		}
+
 		let millisOfIntake = new Date().setHours(time, 0, 0);
 		let millisGap = gap * 60 * 60 * 1000; //hours => min => sec => milli
 		let withinLeftGap = false;
 		let withinRightGap = false;
 
 		if(millisToday >= (millisOfIntake - millisGap) && millisToday < millisOfIntake){
-			console.log("today: " + millisToday + " intake: " + millisOfIntake + " gap: " + millisGap);
-
 			withinLeftGap = true;
 		} else if(millisToday < millisOfIntake + millisGap && millisToday >= millisOfIntake){
 			withinRightGap = true;
@@ -149,14 +154,15 @@ export class HomePage {
 						if(status == 1){
 							this.notifs.push({
 								status: "Next",
-								time: intake.time + ":00",
+								time: intake.time,
+								rawtime: intake.time,
 								medication: m,
 								color: "primary"
 							});
 						} else if(status == 2){
 							this.notifs.push({
 								status: "Due",
-								time: intake.time + ":00",
+								time: intake.time,
 								medication: m,
 								color: "danger"
 							});
@@ -167,8 +173,12 @@ export class HomePage {
 				}
 			}
 		}
+
+		this.notifs.sort(function(a, b){ //sort notifs
+			return a.time - b.time;
+		});
 	}
 	private checkStatus(medication): number{ //0 = Early, 1 = Next,  2 = Due, 3 = Late
-		return this.withinIntervalStatus(medication.time, medication.hoursGap);
+		return this.withinIntervalStatus(medication.time, medication.hoursGap, null);
 	}
 }
