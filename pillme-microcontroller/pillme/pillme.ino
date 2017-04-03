@@ -18,8 +18,6 @@ add a switch for refill
   16 - open flag
 */
 
-
-*/
 #include <ESP8266WiFi.h>
 #include <FirebaseArduino.h>
 #include "config.h"
@@ -51,11 +49,14 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  sendIsOpenCompartment(1, false);
-}
+ion}
  
 void loop() {
-  checkCompartments();
+  if(analogRead(A0) == 1024){
+    Serial.println("REFILL MODE: ON");
+  } else {
+    checkCompartments();
+  }
   delay(500);
 }
 
